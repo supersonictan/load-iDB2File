@@ -1,0 +1,11 @@
+1.功能说明：
+    定时（每2min）从iDB拉取特定表的数据到本地文件，qa读取文件。
+
+2.App.java说明：
+    启动定时线程。
+
+3.ThreadPool.java说明：
+    startTimer()方法周期的执行 ThreadPool线程任务，ThreadPool线程的任务是启动7个ExportRunner线程并行读取iDB数据。
+
+4.TddlSql.java 说明：
+    建立iDB链接，读取iDB数据并写入文件。
