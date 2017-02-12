@@ -32,7 +32,9 @@ public class TddlSql {
         ds.setAppName(APP_NAME);
         ds.setDynamicRule(true);
         ds.setSharding(false);
+        System.out.println("before init");
         ds.init();
+        System.out.println("After init");
 
         Connection conn = null;
         PreparedStatement ps = null;
