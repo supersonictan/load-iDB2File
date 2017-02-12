@@ -24,7 +24,7 @@
     </appender>
 
     <logger name="com">
-        <level value="ERROR" />
+        <level value="INFO" />
         <appender-ref ref="STDOUT" />
         <appender-ref ref="FILE" />
     </logger>
