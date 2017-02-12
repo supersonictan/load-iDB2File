@@ -29,13 +29,13 @@ public class CommonConstant {
     private static final String SQL_SHOW_BLACK_VIDEO = "SELECT * FROM video_business_black";
 
     public static final List<String> EXPORT_FILE_LIST = Arrays.asList(
-            "show_keyword",
-            "t_person_alias",
-            "query_modification",
-            "bad_case2",
-            "recency_query",
-            "t_show_alias",
-            "video_business_black"
+            "data/show_keyword",
+            "data/t_person_alias",
+            "data/query_modification",
+            "data/bad_case2",
+            "data/recency_query",
+            "data/t_show_alias",
+            "data/video_business_black"
     );
 
     public static final List<String> APP_NAME_LIST = Arrays.asList(
