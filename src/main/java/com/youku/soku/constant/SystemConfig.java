@@ -1,7 +1,13 @@
 package com.youku.soku.constant;
 
+import com.taobao.tddl.common.utils.logger.Logger;
+import com.taobao.tddl.common.utils.logger.LoggerFactory;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 
 /**
  * Created by ZeYu
@@ -9,8 +15,10 @@ import java.util.List;
  * Time: 23:18.
  * DESC: say something
  */
-public class CommonConstant {
+public class SystemConfig {
+    private static Logger logger = LoggerFactory.getLogger(SystemConfig.class);
 
+    public static final int LOAD_IDB_TIME_INTERVAL_MIN;
 
     private static final String APP_NAME_SHOW_KEYWORD = "BAD_CASE_APP";
     private static final String APP_NAME_PERSON_ALIAS = "BAD_CASE_APP";
@@ -58,4 +66,30 @@ public class CommonConstant {
     );
 
     public static final String FILE_SUFFIX = "_writing";
+
+
+    static {
+        InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream("system.properties");
+        Properties properties = new Properties();
+        try {
+            properties.load(in);
+        } catch (IOException e) {
+            logger.error("properties is not found", e);
+        } finally {
+            try {
+                if (in != null) {
+                    in.close();
+                }
+            } catch (IOException e) {
+                logger.error("load properties failed", e);
+            }
+        }
+
+        //拉取idb时间周期
+        LOAD_IDB_TIME_INTERVAL_MIN = Integer.valueOf(properties.getProperty("load_idb_time_interval_min","10"));
+
+    }
+
+
+
 }

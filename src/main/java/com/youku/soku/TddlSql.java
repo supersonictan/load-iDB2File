@@ -3,7 +3,7 @@ package com.youku.soku;
 import com.taobao.tddl.client.jdbc.TDataSource;
 import com.taobao.tddl.common.utils.logger.Logger;
 import com.taobao.tddl.common.utils.logger.LoggerFactory;
-import com.youku.soku.constant.CommonConstant;
+import com.youku.soku.constant.SystemConfig;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -25,17 +25,16 @@ public class TddlSql {
 
 
     public static void searchIDB(String sql, String APP_NAME, String transferName) {
-        renameFile(transferName);
-        String newFileName = transferName + CommonConstant.FILE_SUFFIX;
+        String newFileName = transferName + SystemConfig.FILE_SUFFIX;
         long st = System.currentTimeMillis();
         TDataSource ds = new TDataSource();
         ds.setAppName(APP_NAME);
         ds.setDynamicRule(true);
         ds.setSharding(false);
-        System.out.println("before init");
         ds.init();
-        System.out.println("After init");
 
+        /*当exception的时候不要覆盖之前正确的文件。*/
+        boolean needRenameFile = true;
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -60,10 +59,13 @@ public class TddlSql {
                 bw.write(sb.toString());
             }
         } catch (SQLException e) {
+            needRenameFile = false;
             logger.error("SQL Exception...", e);
         } catch (IOException e) {
+            needRenameFile = false;
             logger.error("Write File Exception....", e);
         } catch (Exception e) {
+            needRenameFile = false;
             logger.error("Exception", e);
         } finally {
             try {
@@ -84,14 +86,17 @@ public class TddlSql {
                 e.printStackTrace();
             }
         }
-
+        if (needRenameFile) {
+            renameFile(transferName);
+        }
         logger.error("Finished Load " + newFileName + " Cost:" + (System.currentTimeMillis() - st)/1000 + " s");
     }
 
 
     /**每次查询iDB表的线程启动时，先将**/
     private static void renameFile(String transferName) {
-        File newFile = new File(transferName + CommonConstant.FILE_SUFFIX);
+        File newFile = new File(transferName + SystemConfig.FILE_SUFFIX);
+        //QA要拉取的文件
         File transferFile = new File(transferName);
         /**旧文件不存在直接将新文件改名，否则先删除旧文件再讲新文件改名**/
         if (newFile.exists()) {
