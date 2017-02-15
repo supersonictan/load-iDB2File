@@ -3,7 +3,6 @@ package com.youku.soku;
 import com.taobao.tddl.client.jdbc.TDataSource;
 import com.taobao.tddl.common.utils.logger.Logger;
 import com.taobao.tddl.common.utils.logger.LoggerFactory;
-import com.youku.soku.constant.SystemConfig;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -33,7 +32,7 @@ public class TddlSql {
         ds.setSharding(false);
         ds.init();
 
-        /*当exception的时候不要覆盖之前正确的文件。*/
+        /*当exception的时候不要覆盖之前生成的正确文件。*/
         boolean needRenameFile = true;
         Connection conn = null;
         PreparedStatement ps = null;

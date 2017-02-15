@@ -1,6 +1,5 @@
 package com.youku.soku;
 
-import com.youku.soku.constant.SystemConfig;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -16,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 public class ThreadPool implements Runnable{
 
     private static ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);;
-    private static ExecutorService executorService = Executors.newFixedThreadPool(SystemConfig.APP_NAME_LIST.size());
+    private static ExecutorService executorService = Executors.newFixedThreadPool(SystemConfig.entityList.size());
 
     public static void startTimer(){
         /**等待各线程都执行结束后，再等待2min执行**/
@@ -25,11 +24,8 @@ public class ThreadPool implements Runnable{
 
     @Override
     public void run() {
-        for (int i = 0; i< SystemConfig.APP_NAME_LIST.size(); i++) {
-            executorService.submit(new ExportRunner(
-                    SystemConfig.SQL_LIST.get(i),
-                    SystemConfig.APP_NAME_LIST.get(i),
-                    SystemConfig.EXPORT_FILE_LIST.get(i)));
+        for (DataEntity dataEntity: SystemConfig.entityList) {
+            executorService.submit(new ExportRunner(dataEntity.sql, dataEntity.appName, dataEntity.filePath));
         }
     }
 }
