@@ -2,6 +2,8 @@ package com.youku.soku;
 
 import com.taobao.tddl.common.utils.logger.Logger;
 import com.taobao.tddl.common.utils.logger.LoggerFactory;
+import com.youku.soku.export_iDB.ExportThreadPool;
+import com.youku.soku.import_iDB.TimeManager;
 
 /**
  * Created by ZeYu
@@ -14,7 +16,8 @@ public class App {
 
     public static void main(String[] args) {
 
-        ThreadPool.startTimer();
+        TimeManager.startTimerManager();
+        ExportThreadPool.startTimer();
         try {
             /**当前线程一直运行**/
             Thread.currentThread().join();

@@ -1,4 +1,4 @@
-package com.youku.soku;
+package com.youku.soku.export_iDB;
 
 /**
  * Created by ZeYu
@@ -6,16 +6,16 @@ package com.youku.soku;
  * Time: 19:59.
  * DESC: say something
  */
-public class DataEntity {
+public class ExportDataEntity {
 
     public String sql;
     public String appName;
     public String filePath;
 
-    public DataEntity() {
+    public ExportDataEntity() {
     }
 
-    public DataEntity(String sql, String appName, String filePath) {
+    public ExportDataEntity(String sql, String appName, String filePath) {
         this.sql = sql;
         this.appName = appName;
         this.filePath = filePath;
@@ -47,7 +47,7 @@ public class DataEntity {
 
     @Override
     public String toString() {
-        return "DataEntity{" +
+        return "ExportDataEntity{" +
                 "sql='" + sql + '\'' +
                 ", appName='" + appName + '\'' +
                 ", filePath='" + filePath + '\'' +

@@ -1,8 +1,9 @@
-package com.youku.soku;
+package com.youku.soku.export_iDB;
 
 import com.taobao.tddl.client.jdbc.TDataSource;
 import com.taobao.tddl.common.utils.logger.Logger;
 import com.taobao.tddl.common.utils.logger.LoggerFactory;
+import com.youku.soku.SystemConfig;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -19,8 +20,8 @@ import java.sql.SQLException;
  * Time: 21:11.
  * DESC: say something
  */
-public class TddlSql {
-    private static Logger logger = LoggerFactory.getLogger(TddlSql.class);
+public class ExportTddlSql {
+    private static Logger logger = LoggerFactory.getLogger(ExportTddlSql.class);
 
 
     public static void searchIDB(String sql, String APP_NAME, String transferName) {

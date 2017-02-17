@@ -1,4 +1,4 @@
-package com.youku.soku;
+package com.youku.soku.export_iDB;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -23,6 +23,6 @@ public class ExportRunner implements Runnable {
 
     @Override
     public void run() {
-        TddlSql.searchIDB(SQL, APP_NAME, FILE_NAME);
+        ExportTddlSql.searchIDB(SQL, APP_NAME, FILE_NAME);
     }
 }

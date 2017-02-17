@@ -1,5 +1,7 @@
-package com.youku.soku;
+package com.youku.soku.export_iDB;
 
+
+import com.youku.soku.SystemConfig;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -12,19 +14,20 @@ import java.util.concurrent.TimeUnit;
  * Time: 23:48.
  * DESC: say something
  */
-public class ThreadPool implements Runnable{
+public class ExportThreadPool implements Runnable{
 
     private static ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);;
     private static ExecutorService executorService = Executors.newFixedThreadPool(SystemConfig.entityList.size());
 
+    /**开启 Export线程**/
     public static void startTimer(){
         /**等待各线程都执行结束后，再等待2min执行**/
-        executor.scheduleWithFixedDelay(new ThreadPool(), 1, SystemConfig.LOAD_IDB_TIME_INTERVAL_MIN, TimeUnit.MINUTES);
+        executor.scheduleWithFixedDelay(new ExportThreadPool(), 1, SystemConfig.LOAD_IDB_TIME_INTERVAL_MIN, TimeUnit.MINUTES);
     }
 
     @Override
     public void run() {
-        for (DataEntity dataEntity: SystemConfig.entityList) {
+        for (ExportDataEntity dataEntity: SystemConfig.entityList) {
             executorService.submit(new ExportRunner(dataEntity.sql, dataEntity.appName, dataEntity.filePath));
         }
     }
