@@ -23,6 +23,9 @@ public class SystemConfig {
     public static final String FILE_SUFFIX;     //文件后缀。因load iDB数据会耗时，为了确保QA读取的文件都是load finished文件，加载中的文件命名为:show_keyword_writing,正确加载后重命名为show_keyword,qa读取后面的文件。
     public static final List<ExportDataEntity> entityList = new ArrayList<ExportDataEntity>();
 
+    public static final String IMPORT_QUERY_MODIFICATION_APP_NAME;
+    public static final String IMPORT_QUERY_MODIFICATION_FILE_PATH;
+
 
     static {
         InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream("system.properties");
@@ -95,6 +98,8 @@ public class SystemConfig {
 
         logger.debug("Load dataList finished!" + entityList);
 
+        IMPORT_QUERY_MODIFICATION_APP_NAME = properties.getProperty("IMPORT_QUERY_MODIFICATION_APP_NAME");
+        IMPORT_QUERY_MODIFICATION_FILE_PATH = properties.getProperty("IMPORT_QUERY_MODIFICATION_FILE_PATH");
     }
 
 
