@@ -39,6 +39,7 @@ public class ExportTddlSql {
         PreparedStatement ps = null;
         ResultSet rs = null;
         BufferedWriter bw = null;
+        int sum = 0;
         try {
             conn = ds.getConnection();
             ps = conn.prepareStatement(sql);
@@ -57,6 +58,7 @@ public class ExportTddlSql {
                 }
                 sb.append("\n");
                 bw.write(sb.toString());
+                sum ++;
             }
         } catch (SQLException e) {
             needRenameFile = false;
@@ -86,7 +88,7 @@ public class ExportTddlSql {
                 e.printStackTrace();
             }
         }
-        if (needRenameFile) {
+        if (needRenameFile && (sum > SystemConfig.CHECK_THRESHOLD)) {
             renameFile(transferName);
         }
         logger.error("Finished Load " + newFileName + " Cost:" + (System.currentTimeMillis() - st)/1000 + " s");

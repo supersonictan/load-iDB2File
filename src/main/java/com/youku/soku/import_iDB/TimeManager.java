@@ -1,5 +1,7 @@
 package com.youku.soku.import_iDB;
 
+import com.youku.soku.SystemConfig;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Timer;
@@ -12,7 +14,7 @@ import java.util.Timer;
  */
 public class TimeManager {
 
-    private static final long PERIOD_DAY = 24 * 60 * 60 * 1000;
+    private static final long PERIOD_DAY = SystemConfig.IMPORT_THREAD_TIME_INTERVAL * 60 * 1000;
 
     public static void startTimerManager(){
         Calendar calendar = Calendar.getInstance();
@@ -22,9 +24,9 @@ public class TimeManager {
         Date date=calendar.getTime(); //第一次执行定时任务的时间
 
         //如果第一次执行定时任务的时间 小于当前的时间,此时要在 第一次执行定时任务的时间加一天，以便此任务在下个时间点执行。如果不加一天，任务会立即执行。
-        if (date.before(new Date())) {
+        /*if (date.before(new Date())) {
             date = addDay(date, 3);
-        }
+        }*/
 
         Timer timer = new Timer();
         ImportTask task = new ImportTask();

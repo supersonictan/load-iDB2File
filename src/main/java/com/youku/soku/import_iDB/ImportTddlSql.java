@@ -25,10 +25,6 @@ public class ImportTddlSql {
     private static Logger logger = LoggerFactory.getLogger(ImportTddlSql.class);
 
 
-    public static void main(String[] args) {
-        importIDB("", "BAD_CASE_APP", "E:\\query_reformulation.bak");
-    }
-
     public static void importIDB(String sql, String APP_NAME, String importFileName) {
         logger.error("Calling Import query_modification to iDB");
         long st = System.currentTimeMillis();
